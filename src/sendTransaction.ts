@@ -6,6 +6,7 @@ import { Transaction as TransactionBlock } from "@mysten/sui/transactions";
 const client = new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" });
 
 const vault_id = "<vault_id>"
+const vault_address = "<vault_address>"
 const tx_note = "<note>"
 const accessToken: string = "<Enter API User access token>";
 const privateKeyFile: string = "private.pem";
@@ -18,7 +19,7 @@ const path: string = "/api/v1/transactions";
 async function buildTransactionBlock(){
     const tx = new TransactionBlock();
     // This is the address of the vault used to create this transaction
-    tx.setSender('0x99746ebdb6813cefcc8d619edf7da78339933da7dab08e8792490d3a26f8f606');
+    tx.setSender(vault_address);
     tx.setGasBudget(1000000);
     tx.setGasPrice(1000);
     /*
