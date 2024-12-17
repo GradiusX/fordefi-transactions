@@ -1,7 +1,5 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs';
-// import fetch from 'node-fetch'; // Ensure 'node-fetch' is installed
-import { RequestInit } from 'node-fetch'; // For fetch options typing
 import { SuiClient } from '@mysten/sui/client'
 import { Transaction as TransactionBlock } from "@mysten/sui/transactions";
 
