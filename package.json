@@ -1,0 +1,19 @@
+{
+  "name": "fordefi-transactions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "sendTransaction": "ts-node src//sendTransaction.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mysten/sui": "^1.17.0",
+    "@mysten/sui.js": "^0.54.1",
+    "node-fetch": "^3.3.2",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
+  }
+}
