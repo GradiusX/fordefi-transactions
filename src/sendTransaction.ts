@@ -1,14 +1,23 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs';
-import { SuiClient } from '@mysten/sui/client'
-import { Transaction as TransactionBlock } from "@mysten/sui/transactions";
+import { CoinUtils, TransactionBlock, SuiClient } from "@firefly-exchange/library-sui";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const client = new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" });
 
-const vault_id = "<vault_id>"
-const vault_address = "<vault_address>"
-const tx_note = "<note>"
-const accessToken: string = "<Enter API User access token>";
+function getEnvVar(key: string): string {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Missing environment variable: ${key}`);
+  }
+  return value;
+}
+
+const vault_id = getEnvVar('VAULT_ID')
+const vault_address = getEnvVar('VAULT_ADDRESS')
+const tx_note = "Test note"
+const accessToken: string = getEnvVar('ACCESS_TOKEN')
 const privateKeyFile: string = "private.pem";
 
 const gatewayHost: string = "api.fordefi.com";
@@ -17,16 +26,14 @@ const path: string = "/api/v1/transactions";
 
 // construct tx block
 async function buildTransactionBlock(){
-    const tx = new TransactionBlock();
-    // This is the address of the vault used to create this transaction
-    tx.setSender(vault_address);
-    tx.setGasBudget(1000000);
-    tx.setGasPrice(1000);
-    /*
-        Add TX BLOCK STUFF
-    */
+    let txb = new TransactionBlock();
+    txb.setSender(vault_address);
+    txb.setGasBudget(50000000);
+    txb.setGasPrice(5000);
+    txb = await CoinUtils.createTransferCoinTransaction(txb, client, 0.1e9, "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI", "0xba87b07e98755d5e7853a3b8116e1de9a50cf02acc55fc4f6e98db5026b666e0", vault_address);
+    // txb.splitCoins(txb.gas, [txb.pure.u64(toBigNumberStr(1, 9))])
 
-    const bcsData = await tx.build({ client });
+    const bcsData = await txb.build({ client });
     return Buffer.from(bcsData).toString("base64");
 }
 
