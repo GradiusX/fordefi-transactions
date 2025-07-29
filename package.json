@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "sendTransaction": "ts-node src//sendTransaction.ts"
+    "sendTransaction": "ts-node src//sendTransaction.ts",
+    "sendBlackBoxSignatureRequest": "ts-node src//sendBlackBoxSignatureRequest.ts",
+    "verifyBlackBoxSignatureRequest": "ts-node src//verifyBlackBoxSignatureRequest.ts"
   },
   "author": "",
   "license": "ISC",
